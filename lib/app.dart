@@ -8,6 +8,7 @@ import 'package:yaml/yaml.dart';
 
 import 'meta.dart';
 import 'post.dart';
+import 'posts.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -78,7 +79,7 @@ class App extends StatelessWidget {
   Future<List<Post>> getPosts() async {
     final paths = await getContentPaths();
 
-    final posts = <Post>[];
+    final posts = Posts();
 
     for (final path in paths) {
       final postString = await rootBundle.loadString(path);
@@ -107,6 +108,6 @@ class App extends StatelessWidget {
       }
     }
 
-    return posts;
+    return posts.values;
   }
 }
