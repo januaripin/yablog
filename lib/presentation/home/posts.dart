@@ -1,4 +1,4 @@
-import 'post.dart';
+import '../../domain/entity/post.dart';
 
 class Posts {
   Posts._createInstance();
@@ -10,7 +10,9 @@ class Posts {
   final List<Post> values = <Post>[];
 
   void add(Post post) {
-    values.add(post);
+    if (!values.any((value) => value.meta.slug == post.meta.slug)) {
+      values.add(post);
+    }
   }
 
   void remove(Post post) {
