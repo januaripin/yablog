@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entity/post.dart';
 import '../../utils/content_util.dart';
+import '../post/selected_post.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  static MaterialPageRoute pageRoute(RouteSettings settings) =>
-      MaterialPageRoute(
-        settings: settings,
-        builder: (_) => const HomePage(),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +24,7 @@ class HomePage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final post = future.data![index];
                   return GestureDetector(
-                    onTap: () =>
-                        Navigator.of(context).pushNamed('/${post.meta.slug}'),
+                    onTap: () => SelectedPost().select(index),
                     child: Card(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

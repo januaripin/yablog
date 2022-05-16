@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/navigator_util.dart';
 import '../home/home_page.dart';
 import '../main/main_scaffold.dart';
 import '../post/post_page.dart';
+import '../post/selected_post.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -12,19 +12,29 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Yanuar',
-      builder: (context, child) {
-        return MainScaffold(
-          body: child,
-        );
-      },
-      navigatorKey: NavigatorUtil().navigatorKey,
-      onGenerateRoute: (settings) {
-        if (settings.name == '/') {
-          return HomePage.pageRoute(settings);
-        }
+      home: ValueListenableBuilder(
+        valueListenable: SelectedPost(),
+        builder: (context, value, child) {
+          return Navigator(
+            pages: [
+              const MaterialPage(
+                key: ValueKey('HomePage'),
+                child: MainScaffold(child: HomePage()),
+              ),
+              if (SelectedPost().value > -1) PostPage(),
+            ],
+            onPopPage: (route, result) {
+              if (!route.didPop(result)) {
+                return false;
+              }
 
-        return PostPage.pageRoute(settings);
-      },
+              SelectedPost().unselect();
+
+              return true;
+            },
+          );
+        },
+      ),
     );
   }
 }

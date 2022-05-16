@@ -8,6 +8,8 @@ import '../domain/entity/post.dart';
 import '../presentation/home/posts.dart';
 
 class ContentUtil {
+  static const separator = '---';
+
   static Future<List<String>> getContentPaths() async {
     final assetManifest = await rootBundle.loadString('AssetManifest.json');
 
@@ -27,17 +29,18 @@ class ContentUtil {
     for (final path in paths) {
       final postString = await rootBundle.loadString(path);
 
-      if (!postString.startsWith('---')) {
+      if (!postString.startsWith(separator)) {
         continue;
       }
 
-      final metaLastIndex = postString.lastIndexOf('---');
+      final metaLastIndex = postString.lastIndexOf(separator);
 
       final meta = Meta.fromYaml(
         loadYaml(postString.substring(0, metaLastIndex)),
       );
 
-      final content = postString.substring(metaLastIndex, postString.length);
+      final content = postString.substring(
+          metaLastIndex + separator.length, postString.length);
 
       final post = Post(
         meta: meta,

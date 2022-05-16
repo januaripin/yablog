@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/navigator_util.dart';
+import '../post/selected_post.dart';
 
 class MainScaffold extends StatelessWidget {
-  final Widget? body;
+  final Widget? child;
 
-  const MainScaffold({Key? key, this.body}) : super(key: key);
+  const MainScaffold({Key? key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class MainScaffold extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: GestureDetector(
-          onTap: () => NavigatorUtil().goToHome(),
+          onTap: () => SelectedPost().unselect(),
           child: Text(
             'blog',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -24,7 +24,7 @@ class MainScaffold extends StatelessWidget {
           ),
         ),
       ),
-      body: body,
+      body: child,
     );
   }
 }
