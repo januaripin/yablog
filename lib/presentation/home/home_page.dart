@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entity/post.dart';
 import '../../utils/content_util.dart';
-import '../post/selected_post.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final ValueChanged<String> onTapped;
+
+  const HomePage({Key? key, required this.onTapped}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final post = future.data![index];
                   return GestureDetector(
-                    onTap: () => SelectedPost().select(index),
+                    onTap: () => onTapped(post.id),
                     child: Card(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

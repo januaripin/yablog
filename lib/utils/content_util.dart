@@ -5,7 +5,7 @@ import 'package:yaml/yaml.dart';
 
 import '../domain/entity/meta.dart';
 import '../domain/entity/post.dart';
-import '../presentation/home/posts.dart';
+import '../presentation/app/app_content.dart';
 
 class ContentUtil {
   static const separator = '---';
@@ -24,7 +24,7 @@ class ContentUtil {
   static Future<List<Post>> getPosts() async {
     final paths = await getContentPaths();
 
-    final posts = Posts();
+    final posts = AppContent();
 
     for (final path in paths) {
       final postString = await rootBundle.loadString(path);
@@ -43,6 +43,7 @@ class ContentUtil {
           metaLastIndex + separator.length, postString.length);
 
       final post = Post(
+        id: meta.slug,
         meta: meta,
         content: content,
       );
@@ -50,6 +51,6 @@ class ContentUtil {
       posts.add(post);
     }
 
-    return posts.values;
+    return posts.posts;
   }
 }

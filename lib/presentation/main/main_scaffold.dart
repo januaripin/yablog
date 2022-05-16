@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-import '../post/selected_post.dart';
+import 'package:flutter/material.dart';
 
 class MainScaffold extends StatelessWidget {
   final Widget? child;
@@ -14,9 +14,11 @@ class MainScaffold extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: GestureDetector(
-          onTap: () => SelectedPost().unselect(),
+          onTap: () {
+            log('Back to home');
+          },
           child: Text(
-            'blog',
+            'yakoding',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

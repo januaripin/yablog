@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../home/home_page.dart';
-import '../main/main_scaffold.dart';
-import '../post/post_page.dart';
-import '../post/selected_post.dart';
+import 'app_route_information_parser.dart';
+import 'app_router_delegate.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  App({Key? key}) : super(key: key);
+
+  final AppRouterDelegate _routerDelegate = AppRouterDelegate();
+  final AppRouteInformationParser _routeInformationParser =
+      AppRouteInformationParser();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Yanuar',
-      home: ValueListenableBuilder(
-        valueListenable: SelectedPost(),
-        builder: (context, value, child) {
-          return Navigator(
-            pages: [
-              const MaterialPage(
-                key: ValueKey('HomePage'),
-                child: MainScaffold(child: HomePage()),
-              ),
-              if (SelectedPost().value > -1) PostPage(),
-            ],
-            onPopPage: (route, result) {
-              if (!route.didPop(result)) {
-                return false;
-              }
-
-              SelectedPost().unselect();
-
-              return true;
-            },
-          );
-        },
-      ),
+    return MaterialApp.router(
+      title: 'yakoding',
+      routerDelegate: _routerDelegate,
+      routeInformationParser: _routeInformationParser,
     );
   }
 }
