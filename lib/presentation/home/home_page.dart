@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entity/post.dart';
+import '../../router/app_router_state.dart';
 import '../../utils/content_util.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final post = future.data![index];
                   return GestureDetector(
-                    onTap: () => onTapped(post.id),
+                    onTap: () => AppRouterState().goToPostPage(post.id),
                     child: Card(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

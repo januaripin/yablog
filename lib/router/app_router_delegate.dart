@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 
-import '../home/home_page.dart';
-import '../main/main_scaffold.dart';
-import '../not_found/not_found_page.dart';
-import '../post/post_page.dart';
-import 'app_route_path.dart';
+import '../presentation/home/home_page.dart';
+import '../presentation/main/main_scaffold.dart';
+import '../presentation/not_found/not_found_page.dart';
+import '../presentation/post/post_page.dart';
+import 'app_route_configuration.dart';
+import 'app_router_state.dart';
 
-class AppRouterDelegate extends RouterDelegate<AppRoutePath>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutePath> {
-  String? slug;
-  bool isNotFound = false;
+class AppRouterDelegate extends RouterDelegate<AppRouteConfiguration>
+    with
+        ChangeNotifier,
+        PopNavigatorRouterDelegateMixin<AppRouteConfiguration> {
+  @override
+  final GlobalKey<NavigatorState> navigatorKey;
+  final AppRouterState _appRouterState;
+
+  AppRouterDelegate(AppRouterState appRouterState)
+      : _appRouterState = appRouterState,
+        navigatorKey = GlobalKey() {
+    _appRouterState.addListener(notifyListeners);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +31,12 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
           key: const ValueKey('HomePage'),
           child: MainScaffold(
             child: HomePage(
-              onTapped: (String value) {
-                slug = value;
-                notifyListeners();
-              },
+              onTapped: (String value) => _appRouterState.goToPostPage(value),
             ),
           ),
         ),
-        if (slug != null) PostPage(slug!),
-        if (isNotFound)
+        if (_appRouterState.isPost) PostPage(_appRouterState.slug!),
+        if (_appRouterState.isNotFound)
           const MaterialPage(
             key: ValueKey('NotFoundPage'),
             child: MainScaffold(child: NotFoundPage()),
@@ -40,9 +47,7 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
           return false;
         }
 
-        slug = null;
-        isNotFound = false;
-        notifyListeners();
+        _appRouterState.goToHome();
 
         return true;
       },
@@ -50,32 +55,30 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
   }
 
   @override
-  GlobalKey<NavigatorState>? get navigatorKey => GlobalKey<NavigatorState>();
-
-  @override
-  Future<void> setNewRoutePath(AppRoutePath configuration) async {
-    if (configuration.isNotFound) {
-      slug = null;
-      isNotFound = false;
-      return;
-    }
-
-    if (configuration.isPost) {
-      slug = configuration.slug;
-      return;
-    } else {
-      slug = null;
-    }
-
-    isNotFound = false;
+  Future<bool> popRoute() {
+    return super.popRoute();
   }
 
   @override
-  AppRoutePath get currentConfiguration {
-    if (isNotFound) {
-      return AppRoutePath.notFound();
+  Future<void> setNewRoutePath(AppRouteConfiguration configuration) async {
+    if (configuration.isNotFound) {
+      _appRouterState.goToNotFoundPage();
+      return;
+    } else if (configuration.slug != null) {
+      _appRouterState.goToPostPage(configuration.slug);
+    } else {
+      _appRouterState.goToHome();
     }
-    return slug == null ? AppRoutePath.home() : AppRoutePath.post(slug);
+  }
+
+  @override
+  AppRouteConfiguration get currentConfiguration {
+    if (_appRouterState.isNotFound) {
+      return AppRouteConfiguration.notFound();
+    }
+    return _appRouterState.isPost
+        ? AppRouteConfiguration.post(_appRouterState.slug)
+        : AppRouteConfiguration.home();
   }
 }
 

@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import '../../router/app_router_state.dart';
+
 class MainScaffold extends StatelessWidget {
   final Widget? child;
 
@@ -14,9 +16,7 @@ class MainScaffold extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: GestureDetector(
-          onTap: () {
-            log('Back to home');
-          },
+          onTap: () => AppRouterState().goToHome(),
           child: Text(
             'yakoding',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
