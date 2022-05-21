@@ -35,7 +35,9 @@ class AppRouterDelegate extends RouterDelegate<AppRouteConfiguration>
             ),
           ),
         ),
-        if (_appRouterState.isPost) PostPage(_appRouterState.slug!),
+        if (_appRouterState.isPost)
+          PostPage(
+              key: ValueKey(_appRouterState.slug), slug: _appRouterState.slug!),
         if (_appRouterState.isNotFound)
           const MaterialPage(
             key: ValueKey('NotFoundPage'),

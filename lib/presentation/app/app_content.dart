@@ -30,4 +30,24 @@ class AppContent {
   Post? bySlug(String slug) {
     return posts.firstWhere((value) => value.id == slug);
   }
+
+  Post? nextPost(String currentSlug) {
+    final currentIndex = posts.indexWhere((post) => post.id == currentSlug);
+
+    if (currentIndex == -1 || currentIndex == posts.length - 1) {
+      return null;
+    }
+
+    return posts[currentIndex + 1];
+  }
+
+  Post? prevPost(String currentSlug) {
+    final currentIndex = posts.indexWhere((post) => post.id == currentSlug);
+
+    if (currentIndex <= 0) {
+      return null;
+    }
+
+    return posts[currentIndex - 1];
+  }
 }

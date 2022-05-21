@@ -18,13 +18,19 @@ class HomePage extends StatelessWidget {
           width: kIsWeb ? 960 : double.infinity,
           child: FutureBuilder<List<Post>>(
             builder: (context, future) {
+              if (future.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final posts = future.data ?? [];
+
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
-                itemCount: future.data?.length ?? 0,
+                itemCount: posts.length,
                 itemBuilder: (context, index) {
-                  final post = future.data![index];
+                  final post = posts[index];
                   return GestureDetector(
                     onTap: () => AppRouterState().goToPostPage(post.id),
                     child: Card(
