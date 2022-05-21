@@ -14,7 +14,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SizedBox(
+        child: Container(
+          padding: const EdgeInsets.only(top: 16),
           width: kIsWeb ? 960 : double.infinity,
           child: FutureBuilder<List<Post>>(
             builder: (context, future) {
