@@ -19,6 +19,7 @@ class App extends StatelessWidget {
       routerDelegate: _routerDelegate,
       routeInformationParser: _routeInformationParser,
       backButtonDispatcher: AppBackDispatcher(_routerDelegate),
+      theme: ThemeData(fontFamily: 'Poppins'),
     );
   }
 }
