@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../router/app_router_state.dart';
+import '../../utils/app_util.dart';
 import '../app/app_themes.dart';
 
 class MainScaffold extends StatelessWidget {
@@ -18,7 +19,7 @@ class MainScaffold extends StatelessWidget {
         title: GestureDetector(
           onTap: () => AppRouterState().goToHome(),
           child: Text(
-            'yakoding',
+            AppUtil.title,
             style: AppThemes.textTheme.titleLarge?.copyWith(
               color: Colors.black,
               fontWeight: FontWeight.bold,
