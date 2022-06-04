@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../router/app_router_state.dart';
+import '../app/app_themes.dart';
 
 class MainScaffold extends StatelessWidget {
   final Widget? child;
@@ -18,18 +19,19 @@ class MainScaffold extends StatelessWidget {
           onTap: () => AppRouterState().goToHome(),
           child: Text(
             'yakoding',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: AppThemes.textTheme.titleLarge?.copyWith(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
       body: Center(
         child: Container(
-            padding: const EdgeInsets.all(16),
-            width: kIsWeb ? 1100 : double.infinity,
-            child: child),
+          padding: const EdgeInsets.all(16),
+          width: kIsWeb ? 1100 : double.infinity,
+          child: child,
+        ),
       ),
     );
   }
