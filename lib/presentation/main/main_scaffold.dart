@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../router/app_router_state.dart';
@@ -26,7 +25,12 @@ class MainScaffold extends StatelessWidget {
           ),
         ),
       ),
-      body: child,
+      body: Center(
+        child: Container(
+            padding: const EdgeInsets.all(16),
+            width: kIsWeb ? 1100 : double.infinity,
+            child: child),
+      ),
     );
   }
 }
