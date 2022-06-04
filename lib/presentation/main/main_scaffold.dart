@@ -14,16 +14,11 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         title: GestureDetector(
           onTap: () => AppRouterState().goToHome(),
           child: Text(
             AppUtil.title,
-            style: AppThemes.textTheme.titleLarge?.copyWith(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppThemes.textTheme.titleLarge,
           ),
         ),
       ),
