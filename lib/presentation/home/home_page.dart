@@ -1,8 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
+import '../../const/assets_path.dart';
 import '../../domain/entity/post.dart';
 import '../../router/app_router_state.dart';
 import '../../utils/content_util.dart';
+import '../../utils/gap.dart';
+import '../app/app_themes.dart';
 
 class HomePage extends StatelessWidget {
   final ValueChanged<String> onTapped;
@@ -20,24 +25,51 @@ class HomePage extends StatelessWidget {
         final posts = future.data ?? [];
 
         return GridView.builder(
+          shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisSpacing: 48,
+            crossAxisSpacing: 48,
             crossAxisCount: 3,
+            childAspectRatio: 324 / 523,
           ),
           itemCount: posts.length,
           itemBuilder: (context, index) {
             final post = posts[index];
+            final imageUrl = '${AssetsPath.imagePlaceholder}${post.id}';
             return GestureDetector(
               onTap: () => AppRouterState().goToPostPage(post.id),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text(post.meta.title),
-                      const Spacer(),
-                      Text(post.meta.date.toString()),
-                    ],
-                  ),
+              child: SizedBox(
+                width: 324,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 324,
+                      height: 218,
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        imageUrl: imageUrl,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                    Gap.p24(),
+                    Text(
+                      post.meta.date.toIso8601String(),
+                      style: AppThemes.textTheme.labelSmall,
+                    ),
+                    Gap.p16(),
+                    Text(
+                      post.meta.title,
+                      style: AppThemes.textTheme.headlineMedium,
+                      maxLines: 3,
+                    ),
+                    Gap.p16(),
+                    MarkdownBody(
+                      data: post.content.substring(0, 200),
+                    ),
+                  ],
                 ),
               ),
             );

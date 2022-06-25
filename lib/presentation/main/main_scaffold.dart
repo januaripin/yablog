@@ -33,8 +33,8 @@ class MainScaffold extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(16),
-          width: kIsWeb ? 1100 : double.infinity,
+          padding: const EdgeInsets.all(100),
+          width: kIsWeb ? 1300 : double.infinity,
           child: child,
         ),
       ),
