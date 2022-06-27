@@ -5,6 +5,8 @@ import '../../const/assets_path.dart';
 import '../../domain/entity/post.dart';
 import '../../router/app_router_state.dart';
 import '../../utils/content_util.dart';
+import '../../utils/context_extensions.dart';
+import '../../utils/date_time_extentions.dart';
 import '../../utils/gap.dart';
 import '../app/app_themes.dart';
 
@@ -51,7 +53,9 @@ class HomePage extends StatelessWidget {
                         imageUrl: post.meta.featureImage,
                         fit: BoxFit.fitWidth,
                         errorWidget: (context, url, _) => Container(
-                          color: Theme.of(context).colorScheme.background,
+                          color: context.isDarkMode
+                              ? context.colorScheme.background
+                              : context.colorScheme.onBackground,
                           child: Center(
                             child: Image.asset(AssetsPath.abLogo),
                           ),
@@ -60,7 +64,7 @@ class HomePage extends StatelessWidget {
                     ),
                     Gap.p24(),
                     Text(
-                      post.meta.date.toIso8601String(),
+                      post.meta.date.yMMMMd(context.defaultLocale),
                       style: AppThemes.textTheme.labelSmall,
                     ),
                     Gap.p16(),
