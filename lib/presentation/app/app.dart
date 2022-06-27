@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../router/app_back_dispatcher.dart';
 import '../../router/app_route_information_parser.dart';
@@ -23,6 +24,13 @@ class App extends StatelessWidget {
       backButtonDispatcher: AppBackDispatcher(_routerDelegate),
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('id', 'ID')],
+      locale: const Locale('id', 'ID'),
     );
   }
 }

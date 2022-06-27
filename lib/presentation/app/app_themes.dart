@@ -46,7 +46,7 @@ class AppThemes {
         color: color,
         fontSize: fontSize,
         letterSpacing: letterSpacing,
-        height: height ?? (fontSize + 10),
+        height: height ??  (fontSize + 10) / fontSize,
         fontWeight: fontWeight,
       );
 
