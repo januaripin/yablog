@@ -8,6 +8,7 @@ class Meta {
   final List<String> categories;
   final List<String> tags;
   final String languageCode;
+  final String featureImage;
 
   Meta({
     required this.title,
@@ -15,6 +16,7 @@ class Meta {
     required this.slug,
     required this.categories,
     required this.tags,
+    required this.featureImage,
     this.draft = true,
     this.languageCode = 'id',
   });
@@ -31,6 +33,7 @@ class Meta {
       tags: (map['tags'] as YamlList).nodes.map((e) => e.toString()).toList(),
       draft: map['draft'],
       languageCode: map['language_code'],
+      featureImage: map['feature_image'] ?? '',
     );
   }
 
@@ -42,6 +45,7 @@ class Meta {
         'tags': tags,
         'draft': draft,
         'language_code': languageCode,
+        'feature_image': featureImage,
       };
 
   @override

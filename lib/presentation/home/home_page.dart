@@ -35,7 +35,6 @@ class HomePage extends StatelessWidget {
           itemCount: posts.length,
           itemBuilder: (context, index) {
             final post = posts[index];
-            final imageUrl = '${AssetsPath.imagePlaceholder}${post.id}';
             return GestureDetector(
               onTap: () => AppRouterState().goToPostPage(post.id),
               child: SizedBox(
@@ -50,8 +49,14 @@ class HomePage extends StatelessWidget {
                         placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(),
                         ),
-                        imageUrl: imageUrl,
+                        imageUrl: post.meta.featureImage,
                         fit: BoxFit.fitWidth,
+                        errorWidget: (context, url, _) => Container(
+                          color: Theme.of(context).colorScheme.background,
+                          child: Center(
+                            child: Image.asset(AssetsPath.abLogo),
+                          ),
+                        ),
                       ),
                     ),
                     Gap.p24(),
