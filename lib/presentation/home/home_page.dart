@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../const/assets_path.dart';
 import '../../domain/entity/post.dart';
@@ -71,9 +70,6 @@ class HomePage extends StatelessWidget {
                       maxLines: 3,
                     ),
                     Gap.p16(),
-                    MarkdownBody(
-                      data: post.content.substring(0, 200),
-                    ),
                   ],
                 ),
               ),
