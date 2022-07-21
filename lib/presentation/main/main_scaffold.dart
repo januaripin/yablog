@@ -22,7 +22,7 @@ class MainScaffold extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(AssetsPath.abLogo, width: 32),
+              Image.asset(AssetsPath.abLogoTransparent, width: 32),
               Gap.p8(),
               Text(
                 AppUtil.title,

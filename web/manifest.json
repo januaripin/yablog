@@ -1,11 +1,11 @@
 {
-    "name": "blog",
-    "short_name": "blog",
+    "name": "yablog",
+    "short_name": "yablog",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FCFCFF",
+    "theme_color": "#006493",
+    "description": "A blog made with love and powered by Flutter.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

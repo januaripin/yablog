@@ -38,9 +38,7 @@ class PostTile extends StatelessWidget {
                   imageUrl: post.meta.featureImage,
                   fit: BoxFit.fitWidth,
                   errorWidget: (context, url, _) => Container(
-                    color: context.isDarkMode
-                        ? context.colorScheme.background
-                        : context.colorScheme.onBackground,
+                    color: context.colorScheme.primary,
                     child: Center(
                       child: Image.asset(AssetsPath.abLogo),
                     ),

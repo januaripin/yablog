@@ -24,6 +24,7 @@ class App extends StatelessWidget {
       backButtonDispatcher: AppBackDispatcher(_routerDelegate),
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
+      themeMode: ThemeMode.light,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
