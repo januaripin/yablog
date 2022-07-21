@@ -1,10 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../router/app_router_state.dart';
+import '../../utils/gap.dart';
 import '../app/app_content.dart';
+import '../app/app_themes.dart';
 import '../main/main_scaffold.dart';
 import '../not_found/not_found_page.dart';
+import 'nav_button.dart';
 
 class PostPage extends Page {
   final String slug;
@@ -28,32 +32,55 @@ class PostPage extends Page {
             position: animation.drive(curveTween).drive(tween),
             child: MainScaffold(
               child: post != null
-                  ? Column(
-                      children: [
-                        MarkdownBody(data: post.content),
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: prevPost == null
-                                  ? null
-                                  : () => AppRouterState()
-                                      .goToPostPage(prevPost.id),
-                              child: Text(prevPost == null
-                                  ? 'No Prev'
-                                  : prevPost.meta.title),
+                  ? SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Text(
+                            post.meta.title,
+                            style: AppThemes.textTheme.displayLarge?.copyWith(
+                              fontSize: 110,
                             ),
-                            ElevatedButton(
-                              onPressed: nextPost == null
-                                  ? null
-                                  : () => AppRouterState()
-                                      .goToPostPage(nextPost.id),
-                              child: Text(nextPost == null
-                                  ? 'No Next'
-                                  : nextPost.meta.title),
-                            )
-                          ],
-                        )
-                      ],
+                            textAlign: TextAlign.center,
+                          ),
+                          Gap.p8(scale: 10),
+                          Container(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 100),
+                            width: kIsWeb ? 1300 : double.infinity,
+                            child: Column(
+                              children: [
+                                MarkdownBody(data: post.content),
+                                Gap.p8(scale: 10),
+                                const Divider(),
+                                SizedBox(
+                                  height: 100,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      NavButton(
+                                        hasDestination: prevPost != null,
+                                        type: NavButtonType.previous,
+                                        label: prevPost?.meta.title ?? '',
+                                        onTapped: () => AppRouterState()
+                                            .goToPostPage(prevPost?.id),
+                                      ),
+                                      NavButton(
+                                        hasDestination: nextPost != null,
+                                        type: NavButtonType.next,
+                                        label: nextPost?.meta.title ?? '',
+                                        onTapped: () => AppRouterState()
+                                            .goToPostPage(nextPost?.id),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     )
                   : const NotFoundPage(),
             ),
