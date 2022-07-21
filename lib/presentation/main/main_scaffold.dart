@@ -16,12 +16,13 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const SizedBox.shrink(),
         title: GestureDetector(
           onTap: () => AppRouterState().goToHome(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(AssetsPath.abLogo, width: 32),
+              Image.asset(AssetsPath.abLogoTransparent, width: 32),
               Gap.p8(),
               Text(
                 AppUtil.title,
@@ -31,13 +32,7 @@ class MainScaffold extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(100),
-          width: kIsWeb ? 1300 : double.infinity,
-          child: child,
-        ),
-      ),
+      body: Center(child: child),
     );
   }
 }
