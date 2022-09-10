@@ -1,8 +1,11 @@
-# blog
+# yablog
+
+A simple blog template using markdown
+
+<br />
 
 <img src="https://storage.googleapis.com/cms-storage-bucket/4cdf1c5482cd30174cfe.png" width="150">
 
-<br />
 <br />
 
 ## Configuration
@@ -11,11 +14,11 @@
     ...
     "args": [
         "--dart-define",
-        "appName=blog",
+        "appName=yablog",
     ]
     ...
   ```
 - Android Studio Run Configurations args
   ```
-    --dart-define=appName=blog
+    --dart-define=appName=yablog
   ```
